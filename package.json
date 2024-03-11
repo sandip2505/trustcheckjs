@@ -11,8 +11,28 @@
     "url": "git+https://github.com/sandip2505/trustcheckjs.git"
   },
   "keywords": [
-    "npm"
+    "validation",
+    "form validation",
+    "input validation",
+    "data validation",
+    "trustcheck",
+    "field validation",
+    "form security",
+    "data integrity",
+    "input verification",
+    "JavaScript validation",
+    "npm",
+    "package",
+    "library",
+    "node.js",
+    "web development",
+    "frontend",
+    "backend",
+    "security",
+    "code quality",
+    "programming"
   ],
+  
   "author": "Sandip Ganava",
   "license": "ISC",
   "bugs": {

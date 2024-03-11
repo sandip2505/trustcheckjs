@@ -23,7 +23,7 @@ function validateEmail(email) {
     // Regular expression for a simple email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    return emailRegex.test(email) ? true : `${email} email is Invalid`;
+    return emailRegex.test(email) ? true : `${email} This email is Invalid`;
 }
 
 
