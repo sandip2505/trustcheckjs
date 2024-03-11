@@ -1,0 +1,23 @@
+{
+  "name": "trustcheckjs",
+  "version": "1.0.0",
+  "description": "Simplify validation with built-in support for common data types, custom rules, and seamless integration with popular frameworks.",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sandip2505/trustcheckjs.git"
+  },
+  "keywords": [
+    "npm"
+  ],
+  "author": "Sandip Ganava",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sandip2505/trustcheckjs/issues"
+  },
+  "homepage": "https://github.com/sandip2505/trustcheckjs#readme"
+}
