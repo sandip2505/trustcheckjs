@@ -1,4 +1,4 @@
-// Exported functions for validation
+// Exported export async functions for validation
 
 /**
  * Validate if a value is not empty.
@@ -6,7 +6,7 @@
  * @param {string} fieldName - The name of the field being validated.
  * @returns {(boolean|string)} - True if the value is not empty, an error message otherwise.
  */
-function validateNotEmpty(value, fieldName) {
+export async function validateNotEmpty(value, fieldName) {
     if (!value || value.trim() === '') {
         return `${fieldName} cannot be empty`;
     }
@@ -19,7 +19,7 @@ function validateNotEmpty(value, fieldName) {
  * @param {string} email - The email address to validate.
  * @returns {(boolean|string)} - True if the email is valid, an error message otherwise.
  */
-function validateEmail(email) {
+export async function validateEmail(email) {
     // Regular expression for a simple email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -32,7 +32,7 @@ function validateEmail(email) {
  * @param {string} input - The string to validate.
  * @returns {(boolean|string)} - True if the string is alphanumeric, an error message otherwise.
  */
-function validateAlphanumeric(input) {
+export async function validateAlphanumeric(input) {
     // Implement alphanumeric validation logic
     // This example uses a regular expression to check if the string contains only letters and numbers
     return /^[a-zA-Z0-9]+$/.test(input) ? true : 'Only alphanumeric characters are allowed';
@@ -43,7 +43,7 @@ function validateAlphanumeric(input) {
  * @param {string} mobileNumber - The mobile number to validate.
  * @returns {(boolean|string)} - True if the mobile number is valid, an error message otherwise.
  */
-function validateMobileNumber(mobileNumber) {
+export async function validateMobileNumber(mobileNumber) {
     // Regular expression for a simple mobile number validation
     const mobileNumberRegex = /^\d{10}$/;
 
@@ -56,7 +56,7 @@ function validateMobileNumber(mobileNumber) {
 * @param {string} password - The password to validate.
 * @returns {(boolean|string)} - True if the password is strong, an error message otherwise.
 */
-function validatePassword(password) {
+export async function validatePassword(password) {
     // Password criteria
     const minLength = 8;
     const hasUppercase = /[A-Z]/.test(password);
@@ -83,20 +83,10 @@ function validatePassword(password) {
  * @param {string} url - The URL to validate.
  * @returns {(boolean|string)} - True if the URL is valid, an error message otherwise.
  */
-function validateURL(url) {
+export async function validateURL(url) {
     // Implement URL validation logic
     // This example checks if the string is a valid URL using a regular expression
     const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
     return urlRegex.test(url) ? true : 'Invalid URL';
   }
 
-
-// Export the functions
-module.exports = {
-    validateNotEmpty,
-    validateEmail,
-    validateAlphanumeric,
-    validateMobileNumber,
-    validatePassword,
-    validateURL,
-};
