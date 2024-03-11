@@ -2,7 +2,7 @@
   "name": "trustcheckjs",
   "version": "1.0.2",
   "description": "Simplify validation with built-in support for common data types, custom rules, and seamless integration with popular frameworks.",
-  "main": "index.js",
+  "main": "index.cjs",
   "type": "module",
   "scripts": {
     "test": "npm test"
