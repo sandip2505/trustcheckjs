@@ -1,17 +1,22 @@
+const axios = require('axios');
+
 // Exported functions for validation
 
 /**
- * Validate if a value is not empty.
- * @param {string} value - The value to validate.
- * @param {string} fieldName - The name of the field being validated.
- * @returns {(boolean|string)} - True if the value is not empty, an error message otherwise.
+ * Validate if multiple fields are not empty.
+ * @param {...string} fields - The fields to validate.
+ * @returns {(boolean|string)} - True if all fields are not empty, an error message otherwise.
  */
-function validateNotEmpty(value, fieldName) {
-    if (!value || value.trim() === '') {
-        return `${fieldName} cannot be empty`;
-    }
 
-    return true;
+function validateNotEmpty(value, fieldName) {
+    const emptyFields = fields.filter(field => !field || field.trim() === '');
+
+    if (emptyFields.length === 0) {
+        return true;
+    } else {
+        const emptyFieldNames = emptyFields.map((_, index) => `Field ${index + 1}`).join(', ');
+        return `${emptyFieldNames} cannot be empty`;
+    }
 }
 
 /**
@@ -19,6 +24,7 @@ function validateNotEmpty(value, fieldName) {
  * @param {string} email - The email address to validate.
  * @returns {(boolean|string)} - True if the email is valid, an error message otherwise.
  */
+
 function validateEmail(email) {
     // Regular expression for a simple email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -45,7 +51,7 @@ function validateAlphanumeric(input) {
  */
 function validateMobileNumber(mobileNumber) {
     // Regular expression for a simple mobile number validation
-    const mobileNumberRegex = /^\d{10}$/;
+    const mobileNumberRegex = /^[6-9]\d{9}$/;
 
     return mobileNumberRegex.test(mobileNumber) ? true : `${mobileNumber} This mobile number is Invalid`;
 }
@@ -83,12 +89,31 @@ function validatePassword(password) {
  * @param {string} url - The URL to validate.
  * @returns {(boolean|string)} - True if the URL is valid, an error message otherwise.
  */
-function validateURL(url) {
-    // Implement URL validation logic
-    // This example checks if the string is a valid URL using a regular expression
-    const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
-    return urlRegex.test(url) ? true : 'Invalid URL';
-  }
+async function validateURL(url) {
+    try {
+        const validate = await axios.get(url)
+        return true;
+    } catch (error) {
+        return "Invalid URL";
+    }
+}
+
+/**
+* Generate a random One-Time Password (OTP).
+* @param {number} length - The length of the OTP.
+* @returns {string} - The generated OTP.
+*/
+function generateOTP(length) {
+    const characters = '0123456789';
+    let otp = '';
+
+    for (let i = 0; i < length; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        otp += characters.charAt(randomIndex);
+    }
+
+    return otp;
+}
 
 
 // Export the functions
@@ -99,4 +124,5 @@ module.exports = {
     validateMobileNumber,
     validatePassword,
     validateURL,
+    generateOTP,
 };
