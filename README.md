@@ -2,6 +2,19 @@ TrustCheckJS: A Reliable Validation Library for JavaScript
 
 Ensure the integrity of your data effortlessly with TrustCheckJS, a powerful and intuitive JavaScript validation library. Designed to simplify the process of validating user inputs and data structures, TrustCheckJS offers a comprehensive set of validators for common data types, including email addresses, phone numbers, URLs, dates, and more.
 
+Use:
+
+npm install trustcheckjs
+
+const trustcheck = require('trustcheckjs');
+
+// Test the validation functions
+console.log(trustcheck.validateEmail('test@example.com'));
+console.log(trustcheck.validateMobileNumber('1234567890'));
+console.log(trustcheck.validatePassword('StrongPass123!'));
+
+
+
 Key Features:
 
 Custom Validation Rules: Tailor TrustCheckJS to your specific needs by defining custom validation rules, both synchronous and asynchronous.
