@@ -23,3 +23,6 @@ console.log(trustcheck.validatePassword('StrongPass123!'));
 
 // Validate URL
 console.log(trustcheck.validateURL('https://example.com'));
+
+// OTP generate
+console.log(trustcheck.generateOTP(6));
