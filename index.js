@@ -1,4 +1,5 @@
 const axios = require('axios');
+import dummy from "./dummy.json" assert { type: "json" };
 
 // Exported functions for validation
 
@@ -115,6 +116,124 @@ function generateOTP(length) {
     return otp;
 }
 
+/**
+ * Validate file based on allowed file extensions.
+ * @param {string} fileName - The name of the file.
+ * @param {Array<string>} allowedExtensions - Array of allowed file extensions (e.g., ['.jpg', '.png']).
+ * @returns {boolean} - True if the file is valid, false otherwise.
+ */
+function validateFile(fileName, allowedExtensions) {
+    // Get the file extension
+    const fileExtension = fileName.substring(fileName.lastIndexOf('.')).toLowerCase();
+
+    // Check if the file extension is allowed
+    if (allowedExtensions.includes(fileExtension)) {
+        return true;
+    } else {
+        return "File is not valid.";
+    }
+}
+
+/**
+ * Validate a credit card number using the Luhn algorithm.
+ * @param {string} cardNumber - The credit card number to validate.
+ * @returns {string} - Message indicating if the credit card number is valid or not.
+ */
+function validateCreditCard(cardNumber) {
+    // Remove any non-digit characters
+    const cardNumberDigitsOnly = cardNumber.replace(/\D/g, '');
+
+    // Check if the card number is empty or doesn't contain only digits
+    if (!cardNumberDigitsOnly || !/^\d+$/.test(cardNumberDigitsOnly)) {
+        return "Invalid card number format.";
+    }
+
+    // Apply the Luhn algorithm
+    let sum = 0;
+    let doubleUp = false;
+    for (let i = cardNumberDigitsOnly.length - 1; i >= 0; i--) {
+        let digit = parseInt(cardNumberDigitsOnly.charAt(i), 10);
+        if (doubleUp) {
+            digit *= 2;
+            if (digit > 9) {
+                digit -= 9;
+            }
+        }
+        sum += digit;
+        doubleUp = !doubleUp;
+    }
+
+    return sum % 10 === 0 ? true : "Credit card number is not valid.";
+}
+
+
+function validateSchema(data, schema) {
+    // Validate each field in the data
+    for (const key in schema) {
+        const field = schema[key];
+        if (field.required && !data.hasOwnProperty(key)) {
+            return `${key} is required.`;
+        }
+        if (data.hasOwnProperty(key)) {
+            if (typeof data[key] !== field.type) {
+                return `${key} should be of type ${field.type}.`;
+            }
+            if (field.minLength && data[key].length < field.minLength) {
+                return `${key} should have minimum length of ${field.minLength}.`;
+            }
+            if (field.maxLength && data[key].length > field.maxLength) {
+                return `${key} should have maximum length of ${field.maxLength}.`;
+            }
+            if (field.format === 'email' && !isValidEmail(data[key])) {
+                return `${key} should be a valid email address.`;
+            }
+            if (field.integer && !Number.isInteger(data[key])) {
+                return `${key} should be an integer.`;
+            }
+            if (field.min && data[key] < field.min) {
+                return `${key} should be greater than or equal to ${field.min}.`;
+            }
+            if (field.max && data[key] > field.max) {
+                return `${key} should be less than or equal to ${field.max}.`;
+            }
+        }
+    }
+
+    return true;
+}
+
+function isValidEmail(email) {
+    // A simple email validation regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+
+function generateFakeData(template) {
+    const fakeData = {};
+  
+    for (const key in template) {
+      if (Object.hasOwnProperty.call(template, key)) {
+        if (typeof template[key] === 'string') {
+          fakeData[key] = getRandomValue(dummy[template[key]]);
+        } else if (typeof template[key] === 'number') {
+          fakeData[key] = getRandomNumber(template[key]);
+        }
+      }
+    }
+  
+    return fakeData;
+  }
+  
+  function getRandomValue(array) {
+    return array[Math.floor(Math.random() * array.length)];
+  }
+  
+  function getRandomNumber(max) {
+    return Math.floor(Math.random() * max) + 1;
+  }
+
+
 
 // Export the functions
 module.exports = {
@@ -125,4 +244,8 @@ module.exports = {
     validatePassword,
     validateURL,
     generateOTP,
+    validateFile,
+    validateCreditCard,
+    validateSchema,
+    generateFakeData,
 };
