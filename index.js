@@ -1,5 +1,5 @@
 const axios = require('axios');
-import dummy from "./dummy.json" assert { type: "json" };
+const dummy = require('./dummy.json');
 
 // Exported functions for validation
 
@@ -133,7 +133,6 @@ function validateFile(fileName, allowedExtensions) {
         return "File is not valid.";
     }
 }
-
 /**
  * Validate a credit card number using the Luhn algorithm.
  * @param {string} cardNumber - The credit card number to validate.
